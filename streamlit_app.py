@@ -49,11 +49,11 @@ st.subheader('Best/Worst Comparison')
 names = data['Name'].to_list()
 player1_name = st.selectbox('Select Player 1',
                                 names)
-player1_best_worst = st.select_slider(f'{player1_name} at their best or worst?',
+player1_best_worst = st.select_slider('Player 1 at their best or worst?',
                                         options=['Best', 'Worst'])
 player2_name = st.selectbox('Select Player 2',
                                 names)
-player2_best_worst = st.select_slider(f'{player2_name} at their best or worst? ',
+player2_best_worst = st.select_slider('Player 2 at their best or worst? ',
                                         options=['Best', 'Worst'])
 
 idx = data.index[data['Name']==player1_name]
