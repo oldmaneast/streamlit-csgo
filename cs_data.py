@@ -2,7 +2,7 @@ import pandas as pd
 from collections import Counter
 
 host_player = "Old Man East"
-html_file = "CSGO_OME.html"
+html_file = "csgo_ome.html"
 
 # Split the rounds won and lost data and return the selected side
 # as an integer
@@ -202,22 +202,23 @@ def sort_data(df):
     return df
 
 
-all_data = pd.read_html(html_file)
-all_matches = [x for x in all_data if len(x) == 11]
+if __name__ == "__main__":
+    all_data = pd.read_html(html_file)
+    all_matches = [x for x in all_data if len(x) == 11]
 
-for x in all_matches:
-    # Set NaN to 0, where only 1 MVP change ★ to 1, if more than 1 MVP remove the ★
-    x['★'] = x['★'].fillna(0)
-    x['★'].replace('★', 1, inplace=True)
-    x['★'].replace('★', '', regex=True, inplace=True)
+    for x in all_matches:
+        # Set NaN to 0, where only 1 MVP change ★ to 1, if more than 1 MVP remove the ★
+        x['★'] = x['★'].fillna(0)
+        x['★'].replace('★', 1, inplace=True)
+        x['★'].replace('★', '', regex=True, inplace=True)
 
-df = generate_player_stats_table(all_matches, get_friendlies_list(all_matches, number_to_get=10))
-df = add_stats_to_player_stats_table(df)
+    df = generate_player_stats_table(all_matches, get_friendlies_list(all_matches, number_to_get=10))
+    df = add_stats_to_player_stats_table(df)
 
-detailed_df = generate_in_depth_df(all_matches, get_friendlies_list(all_matches, number_to_get=10))
-detailed_df = sort_data(detailed_df)
+    detailed_df = generate_in_depth_df(all_matches, get_friendlies_list(all_matches, number_to_get=10))
+    detailed_df = sort_data(detailed_df)
 
 
-# Save the DataFrames
-df.to_csv('top_10.csv')
-detailed_df.to_csv('detailed_top_10.csv')
+    # Save the DataFrames
+    df.to_csv('top_10.csv')
+    detailed_df.to_csv('detailed_top_10.csv')
